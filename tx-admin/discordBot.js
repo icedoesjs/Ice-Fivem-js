@@ -155,7 +155,7 @@ module.exports = class DiscordBot {
             out.setColor(0x4DEEEA);
             out.setDescription(`Checkout the project:\n Forum: https://forum.fivem.net/t/530475\n Discord: https://discord.gg/f3TsfvD`);
 
-        }else if(message.content.startsWith(`${confing.devprefix}restartfx`)){
+        }else if(message.content.startsWith(`${config.devprefix}restartfx`)){
             if (!message.member.hasPermission(`${config.mainpermission}`)) return message.reply("Error, you do not have permission to restart our FX Server!");
 			message.delete()
 			message.channel.send(`${message.author.username} restarted server at ip **${globals.config.publicIP}:${port}**`)
@@ -205,7 +205,7 @@ module.exports = class DiscordBot {
             let args = message.content.split(" ");
             let announcementmsg = args.slice(1).join(' ');
 			message.delete()
-            await globals.fxRunner.srvCmdBuffer(`txaBroadcast [DISCORD] ${announcementmsg} | Sent from discord by ${message.author.username}`)
+            await globals.fxRunner.srvCmdBuffer(`txaBroadcast [DISCORD] ${announcementmsg} | Sent from the ${message.guild.name} discord by ${message.author.username}`)
             message.channel.send(`${message.author.username} announced **${announcementmsg}**, in **${globals.config.publicIP}:${port}**`)
 
 
