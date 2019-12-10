@@ -1,0 +1,19 @@
+{
+  "name": "ice-fivem-js",
+  "version": "1.0.0",
+  "description": "A open source bot made for FiveM Discord",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "IceyyM8",
+  "license": "ISC",
+  "dependencies": {
+    "common-tags": "^1.8.0",
+    "dateformat": "^3.0.3",
+    "discord-leveling": "^1.1.0",
+    "fivem-api": "^1.5.0",
+    "fs": "0.0.1-security",
+    "quick.db": "^7.0.0-b22"
+  }
+}
