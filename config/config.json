@@ -1,0 +1,20 @@
+{
+    "token": "BOTTOEKN",
+    "shortname": "LALARP",
+    "color": "RANDOM",
+    "logo": "https://pbs.twimg.com/media/CjYGwqwVEAAlC4q.jpg",
+    "devprefix": "?",
+    "prefix1": "$",
+    "mainpermission": "ADMINISTRATOR",
+    "logchannel": "LOGCHANNEL", 
+    "activity": "$Help | Made By IceyyM8", 
+    "steamtoken": "STEAMAPIKEY",
+    "ip": "IP", 
+    "ruleslink": "https://ruleslink.com", 
+    "bugschannel": "bugchannel", 
+    "ticketchannel": "ticketchannel",
+    "joinchannel": "welcomes",
+    "botchatter": "botchat", 
+    "reportchannel": "reportchannel",
+    "txadmin": "true"
+}
