@@ -4,6 +4,7 @@ const Discord = require('discord.js');
 const { dir, log, logOk, logWarn, logError, cleanTerminal } = require('../extras/console');
 const context = 'DiscordBot';
 const humanizeDuration = require('humanize-duration');
+const config = require("./configDb/config.json")
 
 
 module.exports = class DiscordBot {
@@ -85,7 +86,7 @@ module.exports = class DiscordBot {
         //Setup event listeners
         this.client.on('ready', () => {
             logOk(`::Started and logged in as '${this.client.user.tag}'`, context);
-            this.client.user.setActivity(`?help | Made by IceyyM8`, {type: 'WATCHING'});
+            this.client.user.setActivity(`${config.activity}`, {type: 'WATCHING'});
         });
         this.client.on('message', this.handleMessage.bind(this));
         this.client.on('error', (error) => {
@@ -147,21 +148,21 @@ module.exports = class DiscordBot {
             out.setColor(color);
             out.setDescription(desc);
 
-        }else if(message.content.startsWith('/txadmin')){
+        }else if(message.content.startsWith(`${config.devprefix}txadmin`)){
             //Prepare object
             out = new Discord.RichEmbed();
             out.setTitle(`${globals.config.serverName} uses txAdmin v${globals.version.current}!`);
             out.setColor(0x4DEEEA);
             out.setDescription(`Checkout the project:\n Forum: https://forum.fivem.net/t/530475\n Discord: https://discord.gg/f3TsfvD`);
 
-        }else if(message.content.startsWith('?restartfx')){
-            if (!message.member.hasPermission("ADMINISTRATOR")) return message.reply("Error, you do not have permission to restart our FX Server!");
+        }else if(message.content.startsWith(`${confing.devprefix}restartfx`)){
+            if (!message.member.hasPermission(`${config.mainpermission}`)) return message.reply("Error, you do not have permission to restart our FX Server!");
 			message.delete()
 			message.channel.send(`${message.author.username} restarted server at ip **${globals.config.publicIP}:${port}**`)
-            globals.fxRunner.restartServer("Restarted from DOCJRP Discord")
+            globals.fxRunner.restartServer(`Restarted from ${config.shortname} Discord`)
 
-        } else if (message.content.startsWith('?query')) {
-            if (!message.member.hasPermission("ADMINISTRATOR")) return message.reply("Error, you do not have permission to query commands!");
+        } else if (message.content.startsWith(`${config.devprefix}query`)) {
+            if (!message.member.hasPermission(`${config.mainpermission}`)) return message.reply("Error, you do not have permission to query commands!");
             let args = message.content.split(" ");
             var command = args.slice(1).join(' ');
 			message.delete()
@@ -169,8 +170,8 @@ module.exports = class DiscordBot {
            await globals.fxRunner.srvCmdBuffer(command)
            message.channel.send(`${message.author.username} queried the command **${command}**`)
 
-        } else if (message.content.startsWith('?fxconfig')) {
-            if (!message.member.hasPermission("ADMINISTRATOR")) return message.reply("Error, you do not have permission to view our config!");
+        } else if (message.content.startsWith(`${config.devprefix}fxconfig`)) {
+            if (!message.member.hasPermission(`${config.mainpermission}`)) return message.reply("Error, you do not have permission to view our config!");
 			message.delete()
             let embedforconfig = new Discord.RichEmbed()
             .setAuthor(`${globals.config.serverName}'s config`)
@@ -181,8 +182,8 @@ module.exports = class DiscordBot {
             .addField(`TX Versions`, `${globals.version.current}`)
             message.channel.send(embedforconfig)
 
-        } else if (message.content.startsWith('?kickid')) {
-            if (!message.member.hasPermission("ADMINISTRATOR")) return message.reply("Error, you do not have permission to kick server players!");
+        } else if (message.content.startsWith(`${config.devprefix}kickid`)) {
+            if (!message.member.hasPermission(`${config.mainpermission}`)) return message.reply("Error, you do not have permission to kick server players!");
             let args = message.content.split(" ");
             let id = args[1]
             let reason = args.slice(2).join(' ');
@@ -191,16 +192,16 @@ module.exports = class DiscordBot {
             await globals.fxRunner.srvCmdBuffer(`txaKickID ${id} ${reason}`) 
             message.channel.send(`${message.author.username} Kicked **${id}** for **${reason}**`)
 
-        } else if (message.content.startsWith('?restartrsc')) {
-            if (!message.member.hasPermission("ADMINISTRATOR")) return message.reply("Error, you do not have permission to restart resources!!");
+        } else if (message.content.startsWith(`${config.devprefix}restartrsc`)) {
+            if (!message.member.hasPermission(`${config.mainpermission}`)) return message.reply("Error, you do not have permission to restart resources!!");
             let args = message.content.split(" ");
             let resource = args[1]
 			message.delete()
             await globals.fxRunner.srvCmdBuffer(`restart ${resource}`)
             message.channel.send(`${message.author.username} restarted **${resource}**`)
 
-        } else if (message.content.startsWith('?announcefx')) {
-            if (!message.member.hasPermission("ADMINISTRATOR")) return message.reply("Error, you do not have permission to announce on our server!");
+        } else if (message.content.startsWith(`${config.devprefix}announcefx`)) {
+            if (!message.member.hasPermission(`${config.mainpermission}`)) return message.reply("Error, you do not have permission to announce on our server!");
             let args = message.content.split(" ");
             let announcementmsg = args.slice(1).join(' ');
 			message.delete()
