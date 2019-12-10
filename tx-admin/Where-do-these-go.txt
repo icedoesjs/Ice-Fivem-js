@@ -1,0 +1,5 @@
+DiscordBot.js 
+txadmin/src/components/  *replace the previous file here*
+
+Login pages
+web/basic/  *Just drag my files here and replace*
