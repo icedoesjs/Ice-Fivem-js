@@ -20,7 +20,7 @@ client.on("ready", () => {
     console.log(`\u001b[32 m`, `[${config.shortname}] Stats | ${client.users.size} users, ${client.channels.size} channels`)
     console.log(`\u001b[32 m`, `[${config.shortname}] Invite | https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=8`)
     console.log(`\u001b[32 m`, `[${config.shortname}] The bot connected to the api and is online with a ping of ${client.ping}ms`)
-    console.log(`\u001b[31m`, `------------[ ${config.shortname} BOT | Made by IceyyM8 ]------------`)
+    console.log(`\u001b[31m`, `------------[ ${config.shortname} Bot | Made by IceyyM8 ]------------`)
     client.user.setActivity(`${config.activity}`, {
         type: "LISTENING"
     })
