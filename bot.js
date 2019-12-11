@@ -152,9 +152,9 @@ process.on("uncaughtException", function(err){
     console.error(`[FATAL] Uncaught Exception: ${err}`)
 })
 
-//process.on("unhandledRejection", function(err){ 
-    //console.error(`[FATAL] Unhandled Rejection Caught: ${err}`)
-//})
+process.on("unhandledRejection", function(err){ 
+    console.error(`[FATAL] Unhandled Rejection Caught: ${err}`)
+})
 
 client.on("message", function (message) {
     if (message.author.bot) return;
