@@ -43,6 +43,10 @@ What do these values mean, find out below!
 
 "txadmin" [true or false] If true shows tx admin commands in help if false vice versa
 
+"autorole" [true or false] If true autorole is enabled 
+
+"autoroleid" The role of the id you want user's to be added to when they join
+
 ## Where do tx admin files go?
 DiscordBot.js 
 txadmin/src/components/  *replace the previous file here*
