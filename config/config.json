@@ -18,5 +18,6 @@
     "reportchannel": "reportchannel",
     "txadmin": "true",
     "autorole": "true",
-    "autoroleid": "ROLEID"
+    "autoroleid": "ROLEID",
+    "autoggdeleter" "false"
 }
