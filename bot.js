@@ -5,6 +5,11 @@ const client = new Client({
     unknownCommandResponse: true
 });
 const config = require('./config/config.json')
+const { Warns } = require('discord-warns')
+const warns = new Warns({
+    datebase: 'sqlite'
+});
+
 client.commands = new Collection();
 client.aliases = new Collection();
 
@@ -37,6 +42,17 @@ client.on('guildMemberAdd', member => {
         .setDescription(`${randomMessage} **${tag}** joined the server`)
     channeltosend.send(embed)
 })
+
+client.on('message', function (message) {
+    if (message.content.includes("https://discord.gg")) {
+        if (config.autoggdeleter = "false") return; 
+    } else if (config.autoggdeleter = "true") {
+        message.channel.send(`<@${message.author.id}>, **please do not send discord invites**`)
+        message.delete(message)
+    } else {
+        return; 
+    }
+} )
 
 client.on('guildMemberRemove', member => {
     const channeltosend = member.guild.channels.find(channel => channel.name === `${config.joinchannel}`);
@@ -116,6 +132,7 @@ client.on('message', async (message) => {
 
 client.on('messageDelete', message => {
     const loggingchannelmsg = message.guild.channels.find(channel => channel.name === `${config.logchannel}`);
+    var messagedel = message.cleanContent || "Message could not be retrieved!"
     if (message.cleanContent.startsWith(`${config.prefix1}` || `${config.devprefix}`)) return console.log(`A command was ran in ${message.channel.name}`)
     let delmsgembed = new RichEmbed()
         .setAuthor(`${config.shortname} Discord logs`)
@@ -124,7 +141,7 @@ client.on('messageDelete', message => {
         .setDescription(`A message was deleted, view info below`)
         .addField(`Channel`, `<#${message.channel.id}>`, true)
         .addField(`Author`, `${message.author.username}`, true)
-        .addField(`Message Content`, `${message.cleanContent}`)
+        .addField(`Message Content`, `${messagedel}`)
         .addField(`Date`, `${new Date()}`, true)
     loggingchannelmsg.send(delmsgembed)
 });
@@ -187,12 +204,11 @@ client.on("message", function (message) {
         let command = client.commands.get(cmd)
         let aliases = client.aliases.get(cmd)
         if (!command) return message.reply(`That command was not found, please use **${config.prefix1}help**`)
-        if (!aliases) return message.reply(`That command was not found, please use **${config.prefix1}help**`)
     }
 
     let command = client.commands.get(cmd)
     if (!command) command = client.commands.get(client.aliases.get(cmd));
-    if (command) command.run(client, message, args, config)
+    if (command) command.run(client, message, args, config, warns)
 })
 
 client.login(`${config.token}`)
