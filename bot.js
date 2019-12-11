@@ -5,11 +5,6 @@ const client = new Client({
     unknownCommandResponse: true
 });
 const config = require('./config/config.json')
-const { Warns } = require('discord-warns')
-const warns = new Warns({
-    datebase: 'sqlite'
-});
-
 client.commands = new Collection();
 client.aliases = new Collection();
 
