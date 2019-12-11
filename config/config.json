@@ -1,12 +1,12 @@
 {
-    "token": "BOTTOEKN",
+    "token": "TOKEN",
     "shortname": "LALARP",
     "color": "RANDOM",
     "logo": "https://pbs.twimg.com/media/CjYGwqwVEAAlC4q.jpg",
     "devprefix": "?",
     "prefix1": "$",
     "mainpermission": "ADMINISTRATOR",
-    "logchannel": "LOGCHANNEL", 
+    "logchannel": "LOGCHANNNAME", 
     "activity": "$Help | Made By IceyyM8", 
     "steamtoken": "STEAMAPIKEY",
     "ip": "IP", 
@@ -16,5 +16,7 @@
     "joinchannel": "welcomes",
     "botchatter": "botchat", 
     "reportchannel": "reportchannel",
-    "txadmin": "true"
+    "txadmin": "true",
+    "autorole": "true",
+    "autoroleid": "ROLEID"
 }
