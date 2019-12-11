@@ -54,5 +54,8 @@ txadmin/src/components/  *replace the previous file here*
 Login pages
 txadmin/web/basic/  *Just drag my files here and replace*
 
+configDb file 
+txadmin/src/components *Just drag tge folder here*
+
 
 # Need help, add me on Discord IceyyM8#0816
