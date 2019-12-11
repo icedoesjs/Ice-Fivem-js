@@ -19,5 +19,5 @@
     "txadmin": "true",
     "autorole": "true",
     "autoroleid": "ROLEID",
-    "autoggdeleter" "false"
+    "autoggdeleter": "false"
 }
