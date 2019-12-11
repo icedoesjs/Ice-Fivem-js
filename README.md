@@ -8,13 +8,14 @@ First please run install-depend.bat and wait for it to finish
 Next go to /config/config.json and edit these values
 
 What do these values mean, find out below!
+
 "token" This is the bot's token
 
 "color" Main embed color, use a hex like this #000fff or use basics like "RED" "BLUE" or "RANDOM"
 
 "logo" The servers logo, direct image link
 
-"devprefix" Used in commands like restarting the discord bot and suck
+"devprefix" Used in commands like restarting the discord bot and such
 
 "prefix1" The bots public prefix
 
