@@ -20,35 +20,33 @@ client.on("ready", () => {
     console.log(`\u001b[32 m`, `[${config.shortname}] Stats | ${client.users.size} users, ${client.channels.size} channels`)
     console.log(`\u001b[32 m`, `[${config.shortname}] Invite | https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=8`)
     console.log(`\u001b[32 m`, `[${config.shortname}] The bot connected to the api and is online with a ping of ${client.ping}ms`)
-    console.log(`\u001b[31m`, `------------[ ${config.shortname} Bot | Made by IceyyM8 ]------------`)
+    console.log(`\u001b[31m`, `------------[ ${config.shortname} BOT | Made by IceyyM8 ]------------`)
     client.user.setActivity(`${config.activity}`, {
         type: "LISTENING"
     })
 });
 
 client.on('guildMemberAdd', member => {
-    const wchannel = member.guild.channels.find(channel => channel.name === `${config.joinchannel}`);
+    const channeltosend = member.guild.channels.find(channel => channel.name === `${config.joinchannel}`);
     var color = config.color
     var tag = member.user.tag
     var messages = ['The real', 'The legend', 'Calm Down!', 'OMG,', 'Yooo!', 'Oh no,', 'Wait!' || "Hol up" || "No way," || 'Oh yeah,' || 'Keep in mind' || 'The amazing']
     var randomMessage = messages[Math.floor(Math.random() * messages.length)];
-    console.log(`Returned ${randomMessage} for welcomes!`)
     var embed = new RichEmbed()
         .setColor(color)
         .setDescription(`${randomMessage} **${tag}** joined the server`)
-    wchannel.send(embed)
+    channeltosend.send(embed)
 })
 
 client.on('guildMemberRemove', member => {
-    const channell = member.guild.channels.find(channel => channel.name === `${config.joinchannel}`);
+    const channeltosend = member.guild.channels.find(channel => channel.name === `${config.joinchannel}`);
     var tagl = member.user.tag
     var leavemessaged = ['Im sad,', 'Please keep note,', 'The loser', 'Come back!', "Brace yourselves,", 'Whoops!', 'Come back!', 'Party is over!', 'Commander!', 'NOOOOO,', 'Is he lost?']
     var randomLeave = leavemessaged[Math.floor(Math.random() * leavemessaged.length)];
-    console.log(`Returned ${randomLeave} for welcomes!`)
     var leaveEmbed = new RichEmbed()
         .setColor(`RED`)
         .setDescription(`${randomLeave} **${tagl}** just left the server!`)
-    channell.send(leaveEmbed)
+    channeltosend.send(leaveEmbed)
 })
 
 client.on('message', message => {
@@ -131,6 +129,24 @@ client.on('messageDelete', message => {
     loggingchannelmsg.send(delmsgembed)
 });
 
+
+client.on('guildMemberAdd', member => {
+    if (config.autorole = "true") {
+        const loggingchannel = config.logchannel;
+        const autorole = config.autoroleid
+
+        let find = member.guild.roles.get(`${autorole}`)
+        if (!autorole) return console.error(`Autorole role id was not found, consider changing the role ID to a role or disabling this feature!`)
+        if (!member.guild.me.hasPermission("ADMINISTRATOR")) return console.error(`I do not have permission to use autorole, consider adding me to administrator`)
+        if (member.roles.has(autorole)) return console.log(`${member.user.username} has role ${config.autorole}, no roles changed!`)
+        member.addRole(autorole).catch(console.error);
+        var rolename = member.guild.roles.get(`${autorole}`)
+        member.send(`${member.guild.name} has autorole enabled, you were given **${rolename.name}**`)
+    } else {
+        return;
+    }
+})
+
 client.on("resume", function (replayed) {
     console.info(`[RESUME] Websocket Resumed, ${replayed} events replayed`)
 })
@@ -167,12 +183,16 @@ client.on("message", function (message) {
 
     if (cmd.length === 0) return message.reply(`Use ${config.prefix1}cmds or ${config.prefix1}help to get a list of commands!`)
 
+    if (message.content.startsWith(`${config.prefix1}`)) {
+        let command = client.commands.get(cmd)
+        let aliases = client.aliases.get(cmd)
+        if (!command) return message.reply(`That command was not found, please use **${config.prefix1}help**`)
+        if (!aliases) return message.reply(`That command was not found, please use **${config.prefix1}help**`)
+    }
+
     let command = client.commands.get(cmd)
     if (!command) command = client.commands.get(client.aliases.get(cmd));
     if (command) command.run(client, message, args, config)
 })
 
 client.login(`${config.token}`)
-
-
-
