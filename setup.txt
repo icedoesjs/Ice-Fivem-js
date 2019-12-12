@@ -2,6 +2,8 @@ Thanks for downloading
 
 First please run install-depend.bat and wait for it to finish
 
+Install-depend.bat opens then closes? Make sure you have python 2.7 or a branch of 2.0 if dm me on discord 
+
 Next go to /config/config.json and edit these values
 
 What do these values mean, find out below!
