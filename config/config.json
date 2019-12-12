@@ -12,6 +12,7 @@
     "ip": "IP", 
     "ruleslink": "https://ruleslink.com", 
     "bugschannel": "bugchannel", 
+    "announcementschannel": "announcements",
     "ticketchannel": "ticketchannel",
     "joinchannel": "welcomes",
     "botchatter": "botchat", 
