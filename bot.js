@@ -1,10 +1,15 @@
 const { Discord, Client, Collection, RichEmbed } = require('discord.js');
 const { readdirSync } = require('fs')
 const client = new Client({
-    disableEveryone: true,
+    disableEveryone: false,
     unknownCommandResponse: true
 });
 const config = require('./config/config.json')
+const { Warns } = require('discord-warns')
+const warns = new Warns({
+    datebase: 'sqlite'
+});
+
 client.commands = new Collection();
 client.aliases = new Collection();
 
@@ -37,17 +42,6 @@ client.on('guildMemberAdd', member => {
         .setDescription(`${randomMessage} **${tag}** joined the server`)
     channeltosend.send(embed)
 })
-
-client.on('message', function (message) {
-    if (message.content.includes("https://discord.gg")) {
-        if (config.autoggdeleter = "false") return; 
-    } else if (config.autoggdeleter = "true") {
-        message.channel.send(`<@${message.author.id}>, **please do not send discord invites**`)
-        message.delete(message)
-    } else {
-        return; 
-    }
-} )
 
 client.on('guildMemberRemove', member => {
     const channeltosend = member.guild.channels.find(channel => channel.name === `${config.joinchannel}`);
@@ -116,8 +110,8 @@ client.on('message', async (message) => {
             .setAuthor(`${message.author.username} just leveled up!`)
             .setThumbnail(`${config.logo}`)
             .setColor(`${config.color}`)
-            .addField(`Previous Level`, `${profile.level - 1}`)
-            .addField(`New Level`, `${profile.level}`)
+            .addField(`Previous Level`, `${profile.level}`)
+            .addField(`New Level`, `${profile.level + 1}`)
             .addField(`Points until next level`, `200 Points`)
             .setFooter(`Levels based of frequent messages`)
         channeltosend.send(levelembed)
