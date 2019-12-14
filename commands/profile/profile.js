@@ -5,7 +5,7 @@ module.exports = {
         name: "profile",
         category: "profile",
         description: "Returns the tagged users profile",
-        run: async (client, message, args, config) => {
+        run: async (client, message, args, config, language) => {
             await message.delete();
             const identity = message.mentions.users.first().id 
             var name = get(`ICE.name.${identity}`)
@@ -15,17 +15,17 @@ module.exports = {
             var discordn = message.mentions.users.first().username 
             var commened = get(`ICE.commened.${identity}`)
 
-            if (identity == undefined) return message.reply("Please mention a user")
+            if (identity == undefined) return message.reply(`${language.memnotfound}`)
 
-            if (name == undefined) name = "Roleplay Name not Set!"
+            if (name == undefined) name = `${language.namenotset}`
 
-            if (hex == undefined) hex = "Hex not set"
+            if (hex == undefined) hex = `${language.hexnotset}`
 
-            if (age == undefined) age = "Age not set"
+            if (age == undefined) age = `${language.agenotset}`
 
-            if (gender == undefined) gender = "No Gender Specified"
+            if (gender == undefined) gender = `${language.gendernotset}`
 
-            if (commened == undefined) commened = "This user hasnt been commended, be the first to do so!"
+            if (commened == undefined) commened = `${language.notcommend}`
 
             var outputuser = message.mentions.users.first()
 
@@ -33,7 +33,7 @@ module.exports = {
 
             const embed = new RichEmbed()
             .setAuthor(`${discordn}'s profile`)
-            .setDescription(`Dont know how to update your profile? Use ${config.prefix1}help`)
+            .setDescription(`${language.dontknowupdate} ${config.prefix1}help`)
             .setColor(`${config.color}`)
             .setThumbnail(`${config.logo}`)
             .addField(`Roleplay Name`, `${name}`, true)

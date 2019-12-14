@@ -4,18 +4,18 @@ module.exports = {
         name: "gender",
         category: "profile",
         description: "Set the gender for your profile",
-        run: async (client, message, args, config) => {
+        run: async (client, message, args, config, language) => {
         await message.delete();
         var gender = args[0]
 
-        if (!gender) return message.reply(`Please supply a gender| **EX: ${config.prefix1}gender Male**`)
+        if (!gender) return message.reply(`${language.invalidargs}`)
 
 
         const embed = new RichEmbed()
             .setAuthor(`${config.shortname} Profile System`)
             .setColor(`${config.color}`)
             .setThumbnail(`${config.logo}`)
-            .addField('Your gender was set to', `${gender}`, true)
+            .addField(`${language.genderset}`, `${gender}`, true)
         message.channel.send(embed)
         set(`ICE.gender.${message.author.id}`, `${gender}`)
     }

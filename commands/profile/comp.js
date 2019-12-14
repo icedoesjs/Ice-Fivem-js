@@ -4,11 +4,11 @@ module.exports = {
         name: "commend",
         category: "profile",
         description: "Commend a user!",
-        run: async (client, message, args, config) => {
+        run: async (client, message, args, config, language) => {
             await message.delete();
             var reason = args.slice(1).join(' ')
 
-            if (message.mentions.users.first().id === undefined) return message.reply(`You must mention a user to commend them!`)
+            if (message.mentions.users.first().id === undefined) return message.reply(`${language.memnotfound}`)
 
             if (!reason) reason = `No reason provided`
 
