@@ -3,14 +3,14 @@ module.exports = {
         name: "bug",
         category: "system",
         description: "Send a bug report",
-        run: async (client, message, args, config) => {
+        run: async (client, message, args, config, language) => {
         await message.delete();
         var reportc = message.guild.channels.find(channel => channel.name === `${config.bugschannel}`);
 
 
-        if (!args[0]) return message.reply(`Incorrect usage | EX: **${config.prefix1}bug This is an example**`)
+        if (!args[0]) return message.reply(`${language.invalidargs} **IE: ${config.prefix1}bug bug**`)
 
-        if (!reportc) return message.reply(`The bugs channel was not found, **please contact staff!**`)
+        if (!reportc) return message.reply(`${language.channelnotfound}`)
 
         const embed = new RichEmbed()
             .setAuthor(`${config.shortname} Bug Report!`)
@@ -22,7 +22,7 @@ module.exports = {
             .setTimestamp()
         reportc.send(embed)
         console.log(`Bug message sent to ${reportc}`)
-        message.reply(`The bug was sent to staff, deleting this message in 3 seconds.`)
+        message.reply(`${language.bugsent}`)
         setTimeout(function () {
             message.channel.bulkDelete(`1`)
         }, 5000);

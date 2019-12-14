@@ -3,7 +3,7 @@ module.exports = {
         name: "report",
         category: "system",
         description: "Report a user",
-        run: async (client, message, args, config) => {
+        run: async (client, message, args, config, language) => {
             const mention = message.mentions.users.first()
             const reason = args.slice(1).join(' ');
             var reporter = message.author.id
@@ -11,11 +11,11 @@ module.exports = {
             var channel = message.channel.name
             var reportc = message.guild.channels.find(channel => channel.name === `${config.reportchannel}`);
 
-            if (!mention) return message.reply(`Incorrect usage | EX: **${config.prefix1}report @IceyyM8 This is an example**`)
+            if (!mention) return message.reply(`${language.invalidargs} | IE: **${config.prefix1}report @IceyyM8 This is an example**`)
 
-            if (!reason) return message.reply(`Incorrect usage | EX: **${config.prefix1}report @IceyyM8 This is an example**`)
+            if (!reason) return message.reply(`${language.invalidargs} | EX: **${config.prefix1}report @IceyyM8 This is an example**`)
 
-            if (!reportc) return message.reply(`The report channel was not found, **please contact staff!**`)
+            if (!reportc) return message.reply(`${language.channelnotfound}`)
 
             const embed = new RichEmbed()
             .setAuthor(`${config.shortname} Reports!`)
@@ -28,7 +28,7 @@ module.exports = {
             .setFooter(`The following is the the time of the report`)
             .setTimestamp()
             reportc.send(embed)
-            message.reply(`The report message was sent to staff, deleting these messages in 3 seconds.`)
+            message.reply(`${reportsent}`)
             setTimeout(function(){
              message.channel.bulkDelete(`1`)
             } , 5000);

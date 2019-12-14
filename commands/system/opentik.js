@@ -3,15 +3,15 @@ module.exports = {
         name: "ticket",
         category: "system",
         description: "Open a ticket!",
-        run: async (client, message, args, config) => {
+        run: async (client, message, args, config, language) => {
             await message.delete();
             var ticket = args.slice(0).join(' ');
             const user = message.author.id
             const ticketchannel = message.guild.channels.find(channel => channel.name === `${config.ticketchannel}`);
             
-            if (!ticket) return message.reply(`Invalid command usage | **EX: ${config.prefix1}ticket text here, up to 1500 char**`)
+            if (!ticket) return message.reply(`${language.invalidargs} | **IE: ${config.prefix1}ticket text here, up to 1500 char**`)
 
-            if (!ticketchannel) return message.reply(`No ticket channel found, **please contact staff**`)
+            if (!ticketchannel) return message.reply(`${language.channelnotfound}`)
 
             const embed1 = new RichEmbed()
             .setAuthor(`Your Ticket was sent, view a preview below`)
@@ -19,7 +19,7 @@ module.exports = {
             .setThumbnail(`${config.logo}`)
             .addField(`Ticket Text`, `${ticket}`)
             .setTimestamp()
-            .setFooter(`We will review and reply to your ticket within 24 hours`)
+            .setFooter(`${language.reviewin24}`)
             message.channel.send(embed1)
 
             const embed2 = new RichEmbed()
