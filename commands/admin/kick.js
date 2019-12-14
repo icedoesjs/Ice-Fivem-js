@@ -3,12 +3,12 @@ module.exports = {
         name: "kick",
         category: "admin",
         description: "Kick a user by mention",
-        run: async (client, message, args, config) => {
+        run: async (client, message, args, config, language) => {
             await message.delete()
             const logerchannel = message.guild.channels.find(channel => channel.name === `${config.logchannel}`) || message.channel;
          
             if (!message.mentions.users.first()) {
-                return message.reply(`Please mention a user!`)
+                return message.reply(`${language.mention}`)
             } 
             
             if (args[1]) {
@@ -16,29 +16,29 @@ module.exports = {
             }
 
             if (!args[1]) {
-                let reason = `No reason provided || Kicked by ${message.author.username}`
+                let reason = `${language.noreason} || by ${message.author.username}`
             }
 
             if (!message.member.hasPermission("KICK_MEMBERS")) {
-                return message.reply(`You do not have permission!`)
+                return message.reply(`${language.noperms}`)
             }
 
             if (!message.guild.me.hasPermission("KICK_MEMBERS")) {
-                return message.reply(`I do not have permission!`)
+                return message.reply(`${language.botnoperms}`)
             }
 
             const bye = message.mentions.users.first() || message.guild.members.get(args[0])
 
             if (!bye) {
-                return message.reply(`No user found`)
+                return message.reply(`${language.memnotfound}`)
             }
 
             if (!bye.id === message.author.id) {
-                return message.reply(`You can't kick youself!`)
+                return message.reply(`${language.banyourself}`)
             }
 
             if (!bye.kickable) {
-                return message.reply(`I cant kick that user!`)
+                return message.reply(`${language.notbannable}`)
             }
 
             const embed = new RichEmbed()
@@ -51,7 +51,7 @@ module.exports = {
             .addField(`Kicked by:`, `<@${message.author.id}>`)
             logerchannel.send(embed).then(async bye => {
                 bye.kick(`${reason}`)
-                if (error) return logerchannel.send(`Well i tried to kick ${bye} but there was an error, here's the error ${error}`)
+                if (error) return logerchannel.send(`${throwerr} ${error}`)
             })
         }
     }

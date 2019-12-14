@@ -2,19 +2,19 @@ module.exports = {
         name: "purge",
         category: "admin",
         description: "Deletes the said amount of messages",
-        run: async (client, message, args, config) => {
+        run: async (client, message, args, config, language) => {
             await message.delete();
             
             if (!message.member.hasPermission("MANAGE_MESSAGES")) {
-                return message.reply(`You do not have permission for this!`)
+                return message.reply(`${language.noperms}`)
             }
 
             if (!message.guild.me.hasPermission("MANAGE_MESSAGES")) {
-                return message.reply(`I do not have permission to edit messages!`)
+                return message.reply(`${language.botnoperms}`)
             }
 
             if (!args[0]) {
-                return message.reply(`Please provide a number of messages to delete!`)
+                return message.reply(`${language.invalidargs}`)
             }
 
             if (isNaN(args[0])) {

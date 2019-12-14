@@ -4,19 +4,19 @@ module.exports = {
         name: "setlvl",
         category: "admin",
         description: "Sets the user's level",
-        run: async (client, message, args, config) => {
+        run: async (client, message, args, config, language) => {
             await message.delete();
 
             if (!message.member.hasPermission(`${config.mainpermission}`)) {
-                return message.reply(`You do not have the permission: ${config.mainpermission}`)
+                return message.reply(`${language.noperms}`)
             }
 
             if (!message.mentions.users.first()) {
-                return message.reply(`You must mention a user!`)
+                return message.reply(`${language.memnotfound}`)
             }
 
             if (!args[1]) { 
-                return message.reply(`Invalid usage, param 2 is the level to set to!`)
+                return message.reply(`${language.invalidargs}`)
             }
 
             if (isNaN(args[1])) { 
