@@ -5,10 +5,6 @@ const client = new Client({
     unknownCommandResponse: true
 });
 const config = require('./config/config.json')
-const { Warns } = require('discord-warns')
-const warns = new Warns({
-    datebase: 'sqlite'
-});
 
 client.commands = new Collection();
 client.aliases = new Collection();
@@ -17,40 +13,50 @@ client.aliases = new Collection();
     require(`./handlers/${handler}`)(client)
 })
 
+require(`./local/${config.language}.json`)
+if (!config.language == ("en" || "dan")) {
+    console.error(`The language ${config.language} is not supported! Please use either en or dan!`)
+}
+
+if (config.language == "en") {
+    let language = "en"
+    console.log(`[${config.shortname}] Language set to english!`)
+} else if (config.language == "dan") {
+    let language = "dan"
+    console.log(`[${config.shortname}] Sproget er indstillet til dansk`)
+}
+let language = require(`./local/${config.language}`)
+
+
 client.categories = readdirSync("./commands/")
 
 
 client.on("ready", () => {
-    console.log(`\u001b[31m`, `------------[ ${config.shortname} | Made by IceyyM8 ]------------`)
-    console.log(`\u001b[32 m`, `[${config.shortname}] Stats | ${client.users.size} users, ${client.channels.size} channels`)
-    console.log(`\u001b[32 m`, `[${config.shortname}] Invite | https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=8`)
-    console.log(`\u001b[32 m`, `[${config.shortname}] The bot connected to the api and is online with a ping of ${client.ping}ms`)
-    console.log(`\u001b[31m`, `------------[ ${config.shortname} BOT | Made by IceyyM8 ]------------`)
+    console.log(`\u001b[31m`, `------------[ ${config.shortname} | ${language.madeby} ]------------`)
+    console.log(`\u001b[32 m`, `[${config.shortname}] ${language.firstlog} | ${client.users.size} users, ${client.channels.size} channels`)
+    console.log(`\u001b[32 m`, `[${config.shortname}] ${language.secondlog} | https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=8`)
+    console.log(`\u001b[32 m`, `[${config.shortname}] ${language.thirdlog}`)
+    console.log(`\u001b[31m`, `------------[ ${config.shortname} | ${language.madeby} ]------------`)
     client.user.setActivity(`${config.activity}`, {
         type: "LISTENING"
     })
 });
 
-client.on('guildMemberAdd', member => {
+client.on('guildMemberRemove', member => {
     const channeltosend = member.guild.channels.find(channel => channel.name === `${config.joinchannel}`);
-    var color = config.color
-    var tag = member.user.tag
-    var messages = ['The real', 'The legend', 'Calm Down!', 'OMG,', 'Yooo!', 'Oh no,', 'Wait!' || "Hol up" || "No way," || 'Oh yeah,' || 'Keep in mind' || 'The amazing']
-    var randomMessage = messages[Math.floor(Math.random() * messages.length)];
-    var embed = new RichEmbed()
-        .setColor(color)
-        .setDescription(`${randomMessage} **${tag}** joined the server`)
-    channeltosend.send(embed)
+    var tagl = member.user.tag
+    var leaveEmbed = new RichEmbed()
+        .setColor(`RED`)
+        .setDescription(`**${tagl}** ${langauge.justleft}`)
+    channeltosend.send(leaveEmbed)
 })
 
 client.on('guildMemberRemove', member => {
     const channeltosend = member.guild.channels.find(channel => channel.name === `${config.joinchannel}`);
     var tagl = member.user.tag
-    var leavemessaged = ['Im sad,', 'Please keep note,', 'The loser', 'Come back!', "Brace yourselves,", 'Whoops!', 'Come back!', 'Party is over!', 'Commander!', 'NOOOOO,', 'Is he lost?']
-    var randomLeave = leavemessaged[Math.floor(Math.random() * leavemessaged.length)];
     var leaveEmbed = new RichEmbed()
         .setColor(`RED`)
-        .setDescription(`${randomLeave} **${tagl}** just left the server!`)
+        .setDescription(`**${tagl}** ${langauge.justleft}`)
     channeltosend.send(leaveEmbed)
 })
 
@@ -58,13 +64,13 @@ client.on('message', message => {
     var args = message.content.split(" ");
     var command = args[0].toLowerCase();
     if (command === `${config.devprefix}restart`) {
-        if (!message.member.hasPermission(`${config.mainpermission}`)) return message.reply("Error, you do not have permission!");
-        message.channel.send(`Restarting...`)
+        if (!message.member.hasPermission(`${config.mainpermission}`)) return message.reply(`${language.noperms}`);
+        message.channel.send(`${langauge.restarting}`)
         message.delete();
         console.clear();
         client.destroy()
         client.login(config.token);
-        message.channel.send(`${config.shortname} bot was restarted!`);
+        message.channel.send(`${config.shortname} ${langauge.restarted}`);
         return;
     }
 });
@@ -73,8 +79,8 @@ client.on('message', message => {
     var args = message.content.split(" ");
     var command = args[0].toLowerCase();
     if (command === `${config.devprefix}kill`) {
-        if (!message.member.hasPermission(`${config.mainpermission}`)) return message.reply("Error, you do not have permission!");
-        message.channel.send(`Killing ${config.shortname} Bot`)
+        if (!message.member.hasPermission(`${config.mainpermission}`)) return message.reply(`${language.noperms}`);
+        message.channel.send(`${language.killing} ${config.shortname}`)
         message.delete();
         console.clear();
         client.destroy()
@@ -88,9 +94,9 @@ client.on('message', message => {
     var activity = args.slice(1).join(' ')
     if (command === `${config.devprefix}activity`) {
         message.delete()
-        if (!message.member.hasPermission(`${config.mainpermission}`)) return message.reply("Error, you do not have permission!");
+        if (!message.member.hasPermission(`${config.mainpermission}`)) return message.reply(`${langauge.noperms}`);
         client.user.setActivity(`${activity}`)
-        message.reply(`The bot's activity was updated to ${activity}`)
+        message.reply(`${langauge.activityupdate} ${activity}`)
     }
 });
 
@@ -122,12 +128,12 @@ client.on('message', async (message) => {
 client.on('messageDelete', message => {
     const loggingchannelmsg = message.guild.channels.find(channel => channel.name === `${config.logchannel}`);
     var messagedel = message.cleanContent || "Message could not be retrieved!"
-    if (message.cleanContent.startsWith(`${config.prefix1}` || `${config.devprefix}`)) return console.log(`A command was ran in ${message.channel.name}`)
+    if (message.cleanContent.startsWith(`${config.prefix1}` || `${config.devprefix}`)) return console.log(`${language.cmdran} ${message.channel.name}`)
     let delmsgembed = new RichEmbed()
-        .setAuthor(`${config.shortname} Discord logs`)
+        .setAuthor(`${config.shortname} ${language.logs}`)
         .setColor(`${config.color}`)
         .setThumbnail(`${config.logo}`)
-        .setDescription(`A message was deleted, view info below`)
+        .setDescription(`${language.msgdeleted}`)
         .addField(`Channel`, `<#${message.channel.id}>`, true)
         .addField(`Author`, `${message.author.username}`, true)
         .addField(`Message Content`, `${messagedel}`)
@@ -142,40 +148,40 @@ client.on('guildMemberAdd', member => {
         const autorole = config.autoroleid
 
         let find = member.guild.roles.get(`${autorole}`)
-        if (!autorole) return console.error(`Autorole role id was not found, consider changing the role ID to a role or disabling this feature!`)
-        if (!member.guild.me.hasPermission("ADMINISTRATOR")) return console.error(`I do not have permission to use autorole, consider adding me to administrator`)
+        if (!autorole) return console.error(`${langauge.autorolenotfound}`)
+        if (!member.guild.me.hasPermission("ADMINISTRATOR")) return console.error(`${language.botnoperms}`)
         if (member.roles.has(autorole)) return console.log(`${member.user.username} has role ${config.autorole}, no roles changed!`)
         member.addRole(autorole).catch(console.error);
         var rolename = member.guild.roles.get(`${autorole}`)
-        member.send(`${member.guild.name} has autorole enabled, you were given **${rolename.name}**`)
+        member.send(`${member.guild.name} ${language.autroledm} **${rolename.name}**`)
     } else {
         return;
     }
 })
 
 client.on("resume", function (replayed) {
-    console.info(`[RESUME] Websocket Resumed, ${replayed} events replayed`)
+    console.info(`${language.resume} ${replayed}`)
 })
 
 client.on("reconnecting", function () {
-    console.info(`[CONNECTION] It seems the websocket connection dropped, I reconnected to the websocket`)
+    console.info(`${language.reconnecting}`)
 })
 
 
 client.on("warn", function (info) {
-    console.log(`[WARN] Bot recieved the following warning: ${info}`)
+    console.log(`${langauge.warn} ${info}`)
 })
 
 client.on("error", function(err){
-    console.error(`[ERROR] Returned an error ${err}`)
+    console.error(`${language.error} ${err}`)
 })
 
 process.on("uncaughtException", function(err){
-    console.error(`[FATAL] Uncaught Exception: ${err}`)
+    console.error(`${language.exception} ${err}`)
 })
 
 process.on("unhandledRejection", function(err){ 
-    console.error(`[FATAL] Unhandled Rejection Caught: ${err}`)
+    console.error(`${language.rejection} ${err}`)
 })
 
 client.on("message", function (message) {
@@ -192,12 +198,12 @@ client.on("message", function (message) {
     if (message.content.startsWith(`${config.prefix1}`)) {
         let command = client.commands.get(cmd)
         let aliases = client.aliases.get(cmd)
-        if (!command) return message.reply(`That command was not found, please use **${config.prefix1}help**`)
+        if (!command) return message.reply(`${language.cmdnotfound} **${config.prefix1}help**`)
     }
 
     let command = client.commands.get(cmd)
     if (!command) command = client.commands.get(client.aliases.get(cmd));
-    if (command) command.run(client, message, args, config, warns)
+    if (command) command.run(client, message, args, config, language)
 })
 
 client.login(`${config.token}`)
