@@ -3,15 +3,14 @@ module.exports = {
                 name: "rules",
                 category: "server",
                 description: "Shows the server's rules!",
-                run: async (client, message, args, config) => {
+                run: async (client, message, args, config, language) => {
                 await message.delete();
                 const embed = new RichEmbed()
                 .setTitle(`${config.shortname} Rules (Click Me)`)
                 .setURL(`${config.ruleslink}`)
                 .setThumbnail(`${config.logo}`)
                 .setColor(`${config.color}`)
-                .setDescription(`Above you can review all our rules, please keep in mind not knowing a rule is not an excuse for breaking it.`)
-                .setFooter(`Simply click the title`)
+                .setFooter(`${language.clicktitle}`)
                 message.channel.send(embed)
         }
     }

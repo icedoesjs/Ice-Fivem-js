@@ -4,13 +4,13 @@ module.exports = {
         name: "players",
         category: "server",
         description: "Check how many players are on our server",
-        run: async (client, message, args, config) => {
+        run: async (client, message, args, config, language) => {
         await message.delete();
 
         var online = await getServerInfo(`${config.ip}`)
         var max = online.infos.vars.sv_maxClients
         let embed = new RichEmbed()
-            .setAuthor(`${config.shortname} Players Online`)
+            .setAuthor(`${config.shortname} ${language.playersonline}`)
             .setThumbnail(`${config.logo}`)
             .setColor(`${config.color}`)
             .addField(`Online`, `${online.players.length}/${max}`, true)
