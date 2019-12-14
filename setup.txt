@@ -7,6 +7,8 @@ Install-depend.bat opens then closes? Make sure you have python 2.7 or a branch 
 Next go to /config/config.json and edit these values
 
 What do these values mean, find out below!
+"language" Bots language, use either en or dan (english or danish) More to come!
+
 "token" This is the bot's token
 
 "color" Main embed color, use a hex like this #000fff or use basics like "RED" "BLUE" or "RANDOM"
