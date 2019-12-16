@@ -1,5 +1,5 @@
 # Ice-Fivem-js
-
+Version 1.5.2 
 ## Setup.txt
 Thanks for downloading
 
