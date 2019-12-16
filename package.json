@@ -1,6 +1,6 @@
 {
   "name": "ice-fivem-js",
-  "version": "1.0.0",
+  "version": "1.5.2",
   "description": "A open source bot made for FiveM Discord",
   "main": "bot.js",
   "scripts": {
