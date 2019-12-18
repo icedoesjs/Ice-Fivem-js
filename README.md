@@ -9,6 +9,8 @@ Next go to /config/config.json and edit these values
 
 What do these values mean, find out below!
 
+"language" EN OR DAN (English or danish)
+
 "token" This is the bot's token
 
 "color" Main embed color, use a hex like this #000fff or use basics like "RED" "BLUE" or "RANDOM"
