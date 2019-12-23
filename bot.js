@@ -6,17 +6,10 @@ const client = new Client({
 });
 const config = require('./config/config.json')
 
-client.commands = new Collection();
-client.aliases = new Collection();
-
-["command"].forEach(handler => {
-    require(`./handlers/${handler}`)(client)
-})
-
-require(`./local/${config.language}.json`)
-if (!config.language == ("en" || "dan")) {
-    console.error(`The language ${config.language} is not supported! Please use either en or dan!`)
+if (config.language !== ("en" || "dan" || "swe" || "fr")) {
+    console.error(`The language ${config.language} is not supported! Please use either en, dan, fr or swe!`)
 }
+require(`./local/${config.language}.json`)
 
 if (config.language == "en") {
     let language = "en"
@@ -24,14 +17,26 @@ if (config.language == "en") {
 } else if (config.language == "dan") {
     let language = "dan"
     console.log(`[${config.shortname}] Sproget er indstillet til dansk`)
+} else if (config.language == "swe") {
+    let language = "swe"
+    console.log(`[${config.shortname}] Språk inställt till svenska`)
+} else if (config.langauge == "fr") {
+    let language = "fr"
+    console.log(`[${config.shortname}] Langue définie en français`)
 }
 let language = require(`./local/${config.language}`)
 
+client.commands = new Collection();
+client.aliases = new Collection();
+
+["command"].forEach(handler => {
+    require(`./handlers/${handler}`)(client)
+})
 
 client.categories = readdirSync("./commands/")
 
 
-client.on("ready", () => {
+client.on("ready", async () => {
     console.log(`\u001b[31m`, `------------[ ${config.shortname} | ${language.madeby} ]------------`)
     console.log(`\u001b[32 m`, `[${config.shortname}] ${language.firstlog} | ${client.users.size} users, ${client.channels.size} channels`)
     console.log(`\u001b[32 m`, `[${config.shortname}] ${language.secondlog} | https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=8`)
@@ -180,9 +185,9 @@ process.on("uncaughtException", function(err){
     console.error(`${language.exception} ${err}`)
 })
 
-process.on("unhandledRejection", function(err){ 
-    console.error(`${language.rejection} ${err}`)
-})
+//process.on("unhandledRejection", function(err){ 
+    //console.error(`${language.rejection} ${err}`)
+//})
 
 client.on("message", function (message) {
     if (message.author.bot) return;
@@ -207,3 +212,4 @@ client.on("message", function (message) {
 })
 
 client.login(`${config.token}`)
+
