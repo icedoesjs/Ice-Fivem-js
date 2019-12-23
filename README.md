@@ -9,7 +9,7 @@ Next go to /config/config.json and edit these values
 
 What do these values mean, find out below!
 
-"language" EN OR DAN (English or danish)
+"language" EN, DAN, FR or SWE (English, danish, french or swedish)
 
 "token" This is the bot's token
 
