@@ -20,5 +20,6 @@
     "reportchannel": "reportchannel",
     "txadmin": "true",
     "autorole": "true",
-    "autoroleid": "ROLEID"
+    "autoroleid": "ROLEID",
+    "joinmsg": "Welcome to our server"
 }
