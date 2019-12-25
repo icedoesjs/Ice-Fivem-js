@@ -147,20 +147,22 @@ client.on('messageDelete', message => {
 });
 
 
-client.on('guildMemberAdd', member => {
-    if (config.autorole = "true") {
-        const loggingchannel = config.logchannel;
-        const autorole = config.autoroleid
-
-        let find = member.guild.roles.get(`${autorole}`)
-        if (!autorole) return console.error(`${langauge.autorolenotfound}`)
-        if (!member.guild.me.hasPermission("ADMINISTRATOR")) return console.error(`${language.botnoperms}`)
-        if (member.roles.has(autorole)) return console.log(`${member.user.username} has role ${config.autorole}, no roles changed!`)
-        member.addRole(autorole).catch(console.error);
-        var rolename = member.guild.roles.get(`${autorole}`)
-        member.send(`${member.guild.name} ${language.autroledm} **${rolename.name}**`)
-    } else {
-        return;
+client.on('guildMemberAdd', function (member) {
+    if (config.autorole == "true")
+    var roleid = config.autoroleid
+    var role = member.guild.roles.find(r => r.id === `${roleid}`)
+    var checker = member.guild.roles.get(`${role}`)
+    var welcomedm = config.joinmsg
+    if (role === undefined) {
+        return console.log(`Ther autorole id was not found, database issue?`)
+    } else if (role !== undefined) {
+        if (member.guild.me.hasPermission("ADMINISTRATOR")) {
+            member.addRole(role).catch(console.error)
+            console.log(`${member.name} was added to ${role.name}!`)
+            member.send(`${welcomedm}`)
+        } else {
+            return;
+        }
     }
 })
 
