@@ -199,9 +199,9 @@ process.on("uncaughtException", function(err) {
     console.error(`${language.exception} ${err}`)
 })
 
-//process.on("unhandledRejection", function(err){ 
-//console.error(`${language.rejection} ${err}`)
-//})
+process.on("unhandledRejection", function(err){ 
+console.error(`${language.rejection} ${err}`)
+})
 
 client.on("message", function(message) {
     if (message.author.bot) return;
