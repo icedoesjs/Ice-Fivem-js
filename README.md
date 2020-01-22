@@ -49,6 +49,8 @@ What do these values mean, find out below!
 
 "autoroleid" The role of the id you want user's to be added to when they join
 
+"logger" [true or false] The bot logging system for errors throw in cmd
+
 ## Where do tx admin files go?
 DiscordBot.js 
 txadmin/src/components/  *replace the previous file here*
