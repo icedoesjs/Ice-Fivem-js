@@ -36,15 +36,29 @@ client.aliases = new Collection();
 client.categories = readdirSync("./commands/")
 
 
-client.on("ready", async () => {
-    console.log(`\u001b[31m`, `------------[ ${config.shortname} | ${language.madeby} ]------------`)
-    console.log(`\u001b[32 m`, `[${config.shortname}] ${language.firstlog} | ${client.users.size} users, ${client.channels.size} channels`)
-    console.log(`\u001b[32 m`, `[${config.shortname}] ${language.secondlog} | https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=8`)
-    console.log(`\u001b[32 m`, `[${config.shortname}] ${language.thirdlog}`)
-    console.log(`\u001b[31m`, `------------[ ${config.shortname} | ${language.madeby} ]------------`)
-    client.user.setActivity(`${config.activity}`, {
-        type: "LISTENING"
-    })
+client.on("ready", async() => {
+    if (config.logger == true) {
+        var logger = require('./functions/consoleLog.js')
+        logger.createLogger()
+        console.log(`\u001b[31m`, `------------[ ${config.shortname} | ${language.madeby} ]------------`)
+        console.log(`\u001b[32 m`, `[${config.shortname}] ${language.firstlog} | ${client.users.size} users, ${client.channels.size} channels`)
+        console.log(`\u001b[32 m`, `[${config.shortname}] ${language.secondlog} | https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=8`)
+        console.log(`\u001b[32 m`, `[${config.shortname}] ${language.thirdlog}`)
+        console.log(`\u001b[31m`, `------------[ ${config.shortname} | ${language.madeby} ]------------`)
+        console.log(`Logger Active`)
+        client.user.setActivity(`${config.activity}`, {
+            type: "LISTENING"
+        })
+    } else {
+        console.log(`\u001b[31m`, `------------[ ${config.shortname} | ${language.madeby} ]------------`)
+        console.log(`\u001b[32 m`, `[${config.shortname}] ${language.firstlog} | ${client.users.size} users, ${client.channels.size} channels`)
+        console.log(`\u001b[32 m`, `[${config.shortname}] ${language.secondlog} | https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=8`)
+        console.log(`\u001b[32 m`, `[${config.shortname}] ${language.thirdlog}`)
+        console.log(`\u001b[31m`, `------------[ ${config.shortname} | ${language.madeby} ]------------`)
+        client.user.setActivity(`${config.activity}`, {
+            type: "LISTENING"
+        })
+    }
 });
 
 client.on('guildMemberRemove', member => {
@@ -106,7 +120,7 @@ client.on('message', message => {
 });
 
 
-client.on('message', async (message) => {
+client.on('message', async(message) => {
     var leveling = require('discord-leveling')
     var profile = await leveling.Fetch(message.author.id)
     const channeltosend = message.guild.channels.find(channel => channel.name === `${config.botchatter}`);
@@ -147,51 +161,49 @@ client.on('messageDelete', message => {
 });
 
 
-client.on('guildMemberAdd', function (member) {
-    if (config.autorole == "true")
-    var roleid = config.autoroleid
-    var role = member.guild.roles.find(r => r.id === `${roleid}`)
-    var checker = member.guild.roles.get(`${role}`)
-    var welcomedm = config.joinmsg
-    if (role === undefined) {
-        return console.log(`Ther autorole id was not found, database issue?`)
-    } else if (role !== undefined) {
-        if (member.guild.me.hasPermission("ADMINISTRATOR")) {
-            member.addRole(role).catch(console.error)
-            console.log(`${member.name} was added to ${role.name}!`)
-            member.send(`${welcomedm}`)
-        } else {
-            return;
-        }
+client.on('guildMemberAdd', member => {
+    if (config.autorole = "true") {
+        const loggingchannel = config.logchannel;
+        const autorole = config.autoroleid
+
+        let find = member.guild.roles.get(`${autorole}`)
+        if (!autorole) return console.error(`${langauge.autorolenotfound}`)
+        if (!member.guild.me.hasPermission("ADMINISTRATOR")) return console.error(`${language.botnoperms}`)
+        if (member.roles.has(autorole)) return console.log(`${member.user.username} has role ${config.autorole}, no roles changed!`)
+        member.addRole(autorole).catch(console.error);
+        var rolename = member.guild.roles.get(`${autorole}`)
+        member.send(`${member.guild.name} ${language.autroledm} **${rolename.name}**`)
+    } else {
+        return;
     }
 })
 
-client.on("resume", function (replayed) {
+client.on("resume", function(replayed) {
     console.info(`${language.resume} ${replayed}`)
 })
 
-client.on("reconnecting", function () {
+client.on("reconnecting", function() {
     console.info(`${language.reconnecting}`)
 })
 
 
-client.on("warn", function (info) {
+client.on("warn", function(info) {
     console.log(`${langauge.warn} ${info}`)
 })
 
-client.on("error", function(err){
+client.on("error", function(err) {
     console.error(`${language.error} ${err}`)
 })
 
-process.on("uncaughtException", function(err){
+process.on("uncaughtException", function(err) {
     console.error(`${language.exception} ${err}`)
 })
 
 //process.on("unhandledRejection", function(err){ 
-    //console.error(`${language.rejection} ${err}`)
+//console.error(`${language.rejection} ${err}`)
 //})
 
-client.on("message", function (message) {
+client.on("message", function(message) {
     if (message.author.bot) return;
     if (!message.guild) return;
     if (!message.content.startsWith(`${config.prefix1}` || `${config.devprefix}`)) return;
@@ -214,4 +226,3 @@ client.on("message", function (message) {
 })
 
 client.login(`${config.token}`)
-
