@@ -6,8 +6,8 @@ const client = new Client({
 });
 const config = require('./config/config.json')
 
-if (config.language !== ("en" || "dan" || "swe" || "fr")) {
-    console.error(`The language ${config.language} is not supported! Please use either en, dan, fr or swe!`)
+if (config.language !== "en" || "dan" || "de" || "fr" || "swe") {
+    console.error(`The language ${config.language} is not supported! Please use either en, dan, de, fr or swe!`)
 }
 require(`./local/${config.language}.json`)
 
@@ -23,6 +23,8 @@ if (config.language == "en") {
 } else if (config.langauge == "fr") {
     let language = "fr"
     console.log(`[${config.shortname}] Langue définie en français`)
+} else if (config.langauge == "de") {
+    console.log(`[${config.shortname}]  Sprache auf deutsch gesetzt`)
 }
 let language = require(`./local/${config.language}`)
 
@@ -45,7 +47,7 @@ client.on("ready", async() => {
         console.log(`\u001b[32 m`, `[${config.shortname}] ${language.secondlog} | https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=8`)
         console.log(`\u001b[32 m`, `[${config.shortname}] ${language.thirdlog}`)
         console.log(`\u001b[31m`, `------------[ ${config.shortname} | ${language.madeby} ]------------`)
-        console.log(`Logger Active`)
+        console.log(`${language.logger}`)
         client.user.setActivity(`${config.activity}`, {
             type: "LISTENING"
         })
@@ -199,8 +201,8 @@ process.on("uncaughtException", function(err) {
     console.error(`${language.exception} ${err}`)
 })
 
-process.on("unhandledRejection", function(err){ 
-console.error(`${language.rejection} ${err}`)
+process.on("unhandledRejection", function(err) {
+    console.error(`${language.rejection} ${err}`)
 })
 
 client.on("message", function(message) {
