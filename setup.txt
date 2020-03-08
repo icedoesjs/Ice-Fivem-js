@@ -2,13 +2,9 @@ Thanks for downloading
 
 First please run install-depend.bat and wait for it to finish
 
-Install-depend.bat opens then closes? Make sure you have python 2.7 or a branch of 2.0 if dm me on discord 
-
 Next go to /config/config.json and edit these values
 
 What do these values mean, find out below!
-"language" Bots language, use either en or dan (english or danish) More to come!
-
 "token" This is the bot's token
 
 "color" Main embed color, use a hex like this #000fff or use basics like "RED" "BLUE" or "RANDOM"
@@ -25,20 +21,20 @@ What do these values mean, find out below!
 
 "activity" The bots startup activity
 
-"steamtoken" Your steam api token
+"ip" Your server's ip 
 
-"ip" Your server's ip with the port
+"port" Your server's port
 
 "ruleslink" A link to a sheet of your rules
 
 "bugschannel" Where bug reports will be sent to, channel name exact
 
-"ticketchannel" Where tickets go, exact channel name
+"ticketchannel" The channel where tickets can be opened
 
 "joinchannel" Where welcome and leave msgs go, exact name
-
-"botchatter" Where level msgs go, exact name
 
 "reportchannel" Where reports go, exact name
 
 "txadmin" [true or false] If true shows tx admin commands in help if false vice versa
+
+"adminrole" The id of the role who can close tickets 
