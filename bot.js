@@ -5,10 +5,9 @@ const client = new Client({
     unknownCommandResponse: true
 });
 const config = require('./config/config.json')
+const supports = require('./local/supported.json')
 
-if (config.language !== "en" || "dan" || "de" || "fr" || "swe") {
-    console.error(`The language ${config.language} is not supported! Please use either en, dan, de, fr or swe!`)
-}
+
 require(`./local/${config.language}.json`)
 
 if (config.language == "en") {
@@ -39,29 +38,16 @@ client.categories = readdirSync("./commands/")
 
 
 client.on("ready", async() => {
-    if (config.logger == true) {
-        var logger = require('./functions/consoleLog.js')
-        logger.createLogger()
-        console.log(`\u001b[31m`, `------------[ ${config.shortname} | ${language.madeby} ]------------`)
-        console.log(`\u001b[32 m`, `[${config.shortname}] ${language.firstlog} | ${client.users.size} users, ${client.channels.size} channels`)
-        console.log(`\u001b[32 m`, `[${config.shortname}] ${language.secondlog} | https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=8`)
-        console.log(`\u001b[32 m`, `[${config.shortname}] ${language.thirdlog}`)
-        console.log(`\u001b[31m`, `------------[ ${config.shortname} | ${language.madeby} ]------------`)
-        console.log(`${language.logger}`)
-        client.user.setActivity(`${config.activity}`, {
-            type: "LISTENING"
-        })
-    } else {
-        console.log(`\u001b[31m`, `------------[ ${config.shortname} | ${language.madeby} ]------------`)
-        console.log(`\u001b[32 m`, `[${config.shortname}] ${language.firstlog} | ${client.users.size} users, ${client.channels.size} channels`)
-        console.log(`\u001b[32 m`, `[${config.shortname}] ${language.secondlog} | https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=8`)
-        console.log(`\u001b[32 m`, `[${config.shortname}] ${language.thirdlog}`)
-        console.log(`\u001b[31m`, `------------[ ${config.shortname} | ${language.madeby} ]------------`)
-        client.user.setActivity(`${config.activity}`, {
-            type: "LISTENING"
-        })
-    }
-});
+    var attemptCheck = require('./functions/checkVersion.js')
+    console.log(`\u001b[31m`, `------------[ ${config.shortname} | ${language.madeby} ]------------`)
+    console.log(`\u001b[32 m`, `[${config.shortname}] ${language.firstlog} | ${client.users.size} users, ${client.channels.size} channels`)
+    console.log(`\u001b[32 m`, `[${config.shortname}] ${language.secondlog} | https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=8`)
+    console.log(`\u001b[32 m`, `[${config.shortname}] ${language.thirdlog}`)
+    console.log(`\u001b[31m`, `------------[ ${config.shortname} | ${language.madeby} ]------------`)
+    client.user.setActivity(`${config.activity}`, {
+        type: "LISTENING"
+    })
+})
 
 client.on('guildMemberRemove', member => {
     const channeltosend = member.guild.channels.find(channel => channel.name === `${config.joinchannel}`);
@@ -80,6 +66,7 @@ client.on('guildMemberRemove', member => {
         .setDescription(`**${tagl}** ${langauge.justleft}`)
     channeltosend.send(leaveEmbed)
 })
+
 
 client.on('message', message => {
     var args = message.content.split(" ");
@@ -120,31 +107,6 @@ client.on('message', message => {
         message.reply(`${langauge.activityupdate} ${activity}`)
     }
 });
-
-
-client.on('message', async(message) => {
-    var leveling = require('discord-leveling')
-    var profile = await leveling.Fetch(message.author.id)
-    const channeltosend = message.guild.channels.find(channel => channel.name === `${config.botchatter}`);
-    var prefix = `${config.prefix1}`
-    var prefix3 = `${config.devprefix}`
-    if (!message.content.startsWith(prefix || prefix3)) return;
-    leveling.AddXp(message.author.id, 10)
-    if (profile.xp + 10 > 200) {
-        await leveling.AddLevel(message.author.id, 1)
-        await leveling.SetXp(message.author.id, 0)
-        const levelembed = new RichEmbed()
-            .setAuthor(`${message.author.username} just leveled up!`)
-            .setThumbnail(`${config.logo}`)
-            .setColor(`${config.color}`)
-            .addField(`Previous Level`, `${profile.level}`)
-            .addField(`New Level`, `${profile.level + 1}`)
-            .addField(`Points until next level`, `200 Points`)
-            .setFooter(`Levels based of frequent messages`)
-        channeltosend.send(levelembed)
-        console.log(`[${config.shortname}] ${message.author.username} just leveled up to ${profile.level + 1}`)
-    }
-})
 
 client.on('messageDelete', message => {
     const loggingchannelmsg = message.guild.channels.find(channel => channel.name === `${config.logchannel}`);
@@ -227,4 +189,5 @@ client.on("message", function(message) {
     if (command) command.run(client, message, args, config, language)
 })
 
-client.login(`${config.token}`)
+
+client.login(config.token)
