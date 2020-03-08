@@ -20,10 +20,10 @@ function menu(message, config, language) {
     embed.setThumbnail(config.logo)
     embed.setFooter(`${config.shortname} bot ${language.madeby} | github.com/iceyym8 | ${language.translatedby}`)
     embed.setDescription(`${language.thanksforusing} ${config.shortname} bot, Prefix = ${config.prefix1}. ${language.viewmycmdsbelow} ${config.prefix1}help cmdname`)
-    embed.addField(`${language.admincmds}`, " `ban` `kick` `purge` `setlvl` `announce` `rem-tick [id]`")
+    embed.addField(`${language.admincmds}`, " `ban` `kick` `purge` `announce` `rem-tick [id]`")
     embed.addField(`${language.misccmds}`, " `binfo` `help` `steam` `u-info` `create-tick [text]`")
     embed.addField(`${language.devcmds} (${config.devprefix})`, "`kill`, `restart`")
-    embed.addField(`${language.servercmds}`, "`ip` `players` `rules`")
+    embed.addField(`${language.servercmds}`, "`info` `players` `rules`")
     if (config.txadmin === "true") {
         embed.addField(`${language.txadmincmds}`, "`restartfx` `fxconfig` `query` `restartrsc` `kickid` `announcefx`")
     }
