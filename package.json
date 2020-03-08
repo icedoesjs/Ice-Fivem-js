@@ -26,6 +26,6 @@
     "notification-logger": "0.0.0",
     "smol-jsonp": "^1.0.0",
     "then-read-json": "^1.0.3",
-    "unfluff": "^3.2.0",
+    "unfluff": "^3.2.0"
   }
 }
