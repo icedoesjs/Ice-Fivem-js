@@ -18,7 +18,7 @@ function menu(message, config, language) {
     const embed = new RichEmbed()
     embed.setColor(config.color)
     embed.setThumbnail(config.logo)
-    embed.setFooter(`${config.shortname} bot ${language.madeby} | github.com/iceyym8 | ${language.translatedby}`)
+    embed.setFooter(`${config.shortname} bot ${language.madeby} | github.com/iceyym8`)
     embed.setDescription(`${language.thanksforusing} ${config.shortname} bot, Prefix = ${config.prefix1}. ${language.viewmycmdsbelow} ${config.prefix1}help cmdname`)
     embed.addField(`${language.admincmds}`, " `ban` `kick` `purge` `announce` `rem-tick [id]`")
     embed.addField(`${language.misccmds}`, " `binfo` `help` `steam` `u-info` `create-tick [text]`")
