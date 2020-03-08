@@ -9,8 +9,8 @@
     "mainpermission": "ADMINISTRATOR",
     "logchannel": "loggy",
     "activity": "$Help | Made By IceyyM8",
-    "steamtoken": "STEAMAPIKEY",
     "ip": "IP",
+    "port": "30120",
     "ruleslink": "https://ruleslink.com",
     "bugschannel": "bugchannel",
     "ticketchannel": "ticketchannel",
@@ -21,5 +21,7 @@
     "txadmin": "true",
     "autorole": "true",
     "autoroleid": "641794102639329300",
-    "logger": true
+     "adminrole": "625868506424016944",
+    "playerschannel": "true",
+    "playerschannelid": "686318676940816428"
 }
