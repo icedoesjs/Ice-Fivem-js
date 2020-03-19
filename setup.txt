@@ -38,3 +38,5 @@ What do these values mean, find out below!
 "txadmin" [true or false] If true shows tx admin commands in help if false vice versa
 
 "adminrole" The id of the role who can close tickets 
+
+"playersActivity" if true the bot's activity will sync to your server and show it's player count
