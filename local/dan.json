@@ -1,5 +1,5 @@
 {
-    "madeby": "Lavet af IceyyM8",
+    "madeby": "Lavet af IceyyM8 med ❤️",
     "firstlog": "Logget ind som",
     "secondlog": "Invitere",
     "thirdlog": "Bot forbundet til api",
@@ -60,5 +60,8 @@
     "channelnotfound": "Kanal, der skal sendes til ikke fundet.Kontakt venligst personale",
     "bugsent": "Besked sendt til en administrator, sletter denne besked om 3sekunder.",
     "reviewin24": "Vi gennemgår og besvarer din billet inden for 24 timer",
-    "reportsent": "Rapportmeddelelsen blev sendt til personalet og slettet disse meddelelser på 3 sekunder"
+    "reportsent": "Rapportmeddelelsen blev sendt til personalet og slettet disse meddelelser på 3 sekunder",
+    "translatedby": "Dansk oversættelse af Delatrix",
+    "logger": "logger aktiv",
+    "ingame": "i spil"
 }
