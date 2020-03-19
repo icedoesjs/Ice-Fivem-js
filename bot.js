@@ -6,6 +6,7 @@ const client = new Client({
 });
 const config = require('./config/config.json')
 const supports = require('./local/supported.json')
+const activityUp = require('./functions/actUpdater.js')
 
 
 require(`./local/${config.language}.json`)
@@ -44,9 +45,16 @@ client.on("ready", async() => {
     console.log(`\u001b[32 m`, `[${config.shortname}] ${language.secondlog} | https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=8`)
     console.log(`\u001b[32 m`, `[${config.shortname}] ${language.thirdlog}`)
     console.log(`\u001b[31m`, `------------[ ${config.shortname} | ${language.madeby} ]------------`)
-    client.user.setActivity(`${config.activity}`, {
-        type: "LISTENING"
-    })
+    if (config.playersActivity === true) {
+        console.log(`Polling for players online every 10 seconds`)
+        setInterval(() => {
+            activityUp.updateStatus(client, config, language)
+        }, 10000)
+    } else {
+        client.user.setActivity(`${config.activity}`, {
+            type: "LISTENING"
+        })
+    }
 })
 
 client.on('guildMemberRemove', member => {
