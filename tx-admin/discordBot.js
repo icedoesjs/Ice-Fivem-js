@@ -158,7 +158,7 @@ module.exports = class DiscordBot {
         }else if(message.content.startsWith(`${config.devprefix}restartfx`)){
             if (!message.member.hasPermission(`${config.mainpermission}`)) return message.reply("Error, you do not have permission to restart our FX Server!");
 			message.delete()
-			message.channel.send(`${message.author.username} restarted server at ip **${globals.config.publicIP}:${port}**`)
+			message.channel.send(`${message.author.username} restarted server at ip **${globals.config.publicIP}**`)
             globals.fxRunner.restartServer(`Restarted from ${config.shortname} Discord`)
 
         } else if (message.content.startsWith(`${config.devprefix}query`)) {
