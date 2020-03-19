@@ -59,5 +59,7 @@
     "bugsent": "Le bug a été envoyé, suppression du message dans 3 secondes",
     "reviewin24": "Merci, nous l'examinerons dans les 24 heures",
     "reportsent": "Le rapport a été envoyé, suppression du message dans 3 secondes",
-    "translatedby": "Traduction française par Masterze"
+    "translatedby": "Traduction française par Masterze",
+    "logger": "Enregistreur actif",
+    "ingame": "En jeu"
 }
