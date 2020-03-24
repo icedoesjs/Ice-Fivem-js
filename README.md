@@ -3,21 +3,20 @@ Version 1.5.2
 ## Setup.txt
 Thanks for downloading
 
+Thanks for downloading
+
 First please run install-depend.bat and wait for it to finish
 
 Next go to /config/config.json and edit these values
 
 What do these values mean, find out below!
-
-"language" EN, DAN, FR or SWE (English, danish, french or swedish)
-
 "token" This is the bot's token
 
 "color" Main embed color, use a hex like this #000fff or use basics like "RED" "BLUE" or "RANDOM"
 
 "logo" The servers logo, direct image link
 
-"devprefix" Used in commands like restarting the discord bot and such
+"devprefix" Used in commands like restarting the discord bot and suck
 
 "prefix1" The bots public prefix
 
@@ -27,39 +26,23 @@ What do these values mean, find out below!
 
 "activity" The bots startup activity
 
-"steamtoken" Your steam api token
+"ip" Your server's ip 
 
-"ip" Your server's ip with the port
+"port" Your server's port
 
 "ruleslink" A link to a sheet of your rules
 
 "bugschannel" Where bug reports will be sent to, channel name exact
 
-"ticketchannel" Where tickets go, exact channel name
+"ticketchannel" The channel where tickets can be opened
 
 "joinchannel" Where welcome and leave msgs go, exact name
-
-"botchatter" Where level msgs go, exact name
 
 "reportchannel" Where reports go, exact name
 
 "txadmin" [true or false] If true shows tx admin commands in help if false vice versa
 
-"autorole" [true or false] If true autorole is enabled 
+"adminrole" The id of the role who can close tickets 
 
-"autoroleid" The role of the id you want user's to be added to when they join
-
-"logger" [true or false] The bot logging system for errors throw in cmd
-
-## Where do tx admin files go?
-DiscordBot.js 
-txadmin/src/components/  *replace the previous file here*
-
-Login pages
-txadmin/web/basic/  *Just drag my files here and replace*
-
-configDb file 
-txadmin/src/components *Just drag tge folder here*
-
-
+"playersActivity" if true the bot's activity will sync to your server and show it's player count
 # Need help, add me on Discord IceyyM8#0816
