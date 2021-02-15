@@ -1,3 +1,7 @@
+# THIS PROJECT IS NO LONGER SUPPORTED NOR DOES IT WORK WITH TXADMIN ANYMORE.
+
+
+
 # Ice-Fivem-js
 Version 1.5.2 
 ## Setup.txt
